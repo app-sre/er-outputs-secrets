@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import sys
+from pathlib import Path
 
 from external_resources_io.input import (
     AppInterfaceProvision,
@@ -18,12 +19,17 @@ from kubernetes.dynamic.exceptions import NotFoundError, api_exception
 logging.basicConfig(level=logging.INFO)
 
 
-def read_outputs(file_path: str = "/work/output.json") -> dict[str, str]:
+def read_outputs(terraform_output: str) -> dict[str, str]:
     outputs: dict[str, str] = {}
-    with open(file_path, encoding="utf-8") as f:
-        data = json.load(f)
-        for k, v in data.get("CDKTF", {}).items():
+    data = json.loads(terraform_output)
+    if "CDKTF" in data:
+        # cdktf json
+        for k, v in data["CDKTF"].items():
             outputs[k] = base64.b64encode(str(v).encode()).decode()
+    else:
+        # terraform json
+        for k, v in data.items():
+            outputs[k] = base64.b64encode(str(v["value"]).encode()).decode()
     return outputs
 
 
@@ -82,7 +88,7 @@ if __name__ == "__main__":
                 name=get_secret_name(provision),
                 annotations=provision.model_dump(exclude={"module_provision_data"}),
             ),
-            data=read_outputs(),
+            data=read_outputs(terraform_output=Path("/work/output.json").read_text()),
         )
         k8s_client = get_k8s_client()
         save_outputs(k8s_client, namespace, secret)

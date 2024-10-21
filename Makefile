@@ -1,5 +1,8 @@
 VENV_CMD := . venv/bin/activate &&
 
+.PHONY: test
+test: build
+
 .PHONY: build
 build:
 	docker build -t er-outputs-secrets:test .
