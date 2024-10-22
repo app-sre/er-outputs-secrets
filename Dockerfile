@@ -6,7 +6,7 @@ LABEL konflux.additional-tags="0.1.0"
 USER 0
 
 RUN mkdir /app && \
-    chmod 655 /app
+    chmod 755 /app
 
 WORKDIR /app
 
@@ -22,3 +22,4 @@ COPY tests ./tests
 RUN pytest tests
 
 FROM base AS prod
+ENTRYPOINT [ "python3", "/app/main.py" ]
