@@ -1,5 +1,9 @@
 VENV_CMD := . venv/bin/activate &&
 
+.PHONY: build
+build:
+	docker build -t er-outputs-secrets:test .
+
 .PHONY: dev-venv
 dev-venv:
 	python3.11 -m venv venv
