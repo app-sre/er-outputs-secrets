@@ -1,4 +1,8 @@
 FROM registry.access.redhat.com/ubi9/python-311 AS base
+
+# er-outputs-secrets version
+LABEL konflux.additional-tags="0.1.0"
+
 USER 0
 
 RUN mkdir /app && \
