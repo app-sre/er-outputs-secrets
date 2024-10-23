@@ -30,6 +30,9 @@ spec:
     value: .
   - name: target-stage
     value: test
+  - name: build-platforms
+    value:
+    - linux/amd64
   pipelineRef:
     resolver: git
     params:

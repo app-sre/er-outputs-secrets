@@ -27,6 +27,9 @@ spec:
     value: .
   - name: target-stage
     value: prod
+  - name: build-platforms
+    value:
+    - linux/amd64
   pipelineRef:
     resolver: git
     params:
