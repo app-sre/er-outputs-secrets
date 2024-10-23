@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi9/python-311@sha256:129391e5b291e29a3b24a3fdb
 COPY --from=ghcr.io/astral-sh/uv:0.4.25 /uv /bin/uv
 
 # er-outputs-secrets version. keep in sync with pyproject.toml
-LABEL konflux.additional-tags="0.1.0"
+LABEL konflux.additional-tags="0.2.0"
 
 ENV \
     # use venv from ubi image

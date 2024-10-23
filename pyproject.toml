@@ -1,7 +1,7 @@
 [project]
 name = "er-outputs-secrets"
 # keep in sync with Dockerfile
-version = "0.1.0"
+version = "0.2.0"
 description = "Parse terraform outputs and create k8s secrets"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
