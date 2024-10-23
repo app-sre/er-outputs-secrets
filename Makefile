@@ -2,10 +2,10 @@ VENV_CMD := . venv/bin/activate &&
 
 .PHONY: test
 test:
-	uv run ruff check --no-fix
-	uv run ruff format --check
-	uv run mypy
-	uv run pytest -vv --cov=main --cov-report=term-missing --cov-report xml
+	ruff check --no-fix
+	ruff format --check
+	mypy
+	pytest -vv --cov=main --cov-report=term-missing --cov-report xml
 
 .PHONY: build
 build:
