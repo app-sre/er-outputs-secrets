@@ -11,7 +11,7 @@ RUN pip install --upgrade pip && \
 ENTRYPOINT [ "python3", "main.py" ]
 
 FROM prod AS test
-COPY requirements/requirements-dev.txt ./
+COPY requirements/requirements-dev.txt Makefile ./
 RUN pip3 install -r requirements-dev.txt
 
 COPY tests ./tests
