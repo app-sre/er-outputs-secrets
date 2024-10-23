@@ -1,5 +1,5 @@
 FROM registry.access.redhat.com/ubi9/python-311@sha256:129391e5b291e29a3b24a3fdb281a56d7cb8297bdf8ba92bb5c8581b53084324 AS prod
-COPY --from=ghcr.io/astral-sh/uv:0.4.25 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.4.25@sha256:75ea96bbba2e43a11c90173f1b963eb2354a18e7673d2b0ee8e9428fa4afec7a /uv /bin/uv
 
 # er-outputs-secrets version. keep in sync with pyproject.toml
 LABEL konflux.additional-tags="0.1.0"
