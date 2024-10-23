@@ -88,7 +88,9 @@ if __name__ == "__main__":
                 name=get_secret_name(provision),
                 annotations=provision.model_dump(exclude={"module_provision_data"}),
             ),
-            data=read_outputs(terraform_output=Path("/work/output.json").read_text()),
+            data=read_outputs(
+                terraform_output=Path("/work/output.json").read_text(encoding="locale")
+            ),
         )
         k8s_client = get_k8s_client()
         save_outputs(k8s_client, namespace, secret)

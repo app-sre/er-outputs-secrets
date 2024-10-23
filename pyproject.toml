@@ -1,9 +1,18 @@
+[project]
+name = "er-outputs-secrets"
+# keep in sync with Dockerfile
+version = "0.1.0"
+description = "Parse terraform outputs and create k8s secrets"
+authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
+license = { text = "MIT License" }
+readme = "README.md"
+requires-python = ">= 3.11"
+
 # Ruff configuration
 [tool.ruff]
 line-length = 88
 target-version = 'py311'
-required-version = "0.4.10" # keep in sync with dev dependencies!
-src = ["external_resources_outputs"]
+src = ["main"]
 extend-exclude = [
     ".local", # used by poetry in local venv
     ".cache", # used by poetry in local venv
@@ -34,10 +43,11 @@ ignore = [
 preview = true
 
 [tool.ruff.lint.isort]
-known-first-party = ["external_resources_outputs"]
+known-first-party = ["main"]
 
 # Mypy configuration
 [tool.mypy]
+files = ["main.py", "tests"]
 enable_error_code = ["truthy-bool", "redundant-expr"]
 no_implicit_optional = true
 check_untyped_defs = true
