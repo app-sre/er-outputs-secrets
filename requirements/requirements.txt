@@ -1,4 +1,0 @@
-pydantic~=2.8.2
-kubernetes~=28.1.0
-external-resources-io~=0.3.2
-anymarkup~=0.8.1

@@ -7,6 +7,27 @@ authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
 requires-python = ">= 3.11"
+dependencies = [
+    # allow updates for patch versions only
+    "anymarkup ~=0.8.1",
+    "external-resources-io ~=0.3.2",
+    "kubernetes ~=28.1.0",
+    "pydantic ~=2.8.0",
+]
+
+[project.urls]
+homepage = "https://github.com/app-sre/er-outputs-secretse"
+repository = "https://github.com/app-sre/er-outputs-secretse"
+documentation = "https://github.com/app-sre/er-outputs-secretse"
+
+[tool.uv]
+dev-dependencies = [
+    # allow updates for minor versions
+    "ruff ~=0.7",
+    "mypy ~=1.13",
+    "pytest ~=8.3",
+    "pytest-cov ~=5.0",
+]
 
 # Ruff configuration
 [tool.ruff]
