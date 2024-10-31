@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	unset UV_FROZEN && uv lock --locked
+	uv lock --locked
 	uv run ruff check --no-fix
 	uv run ruff format --check
 	uv run mypy
