@@ -1,12 +1,12 @@
 [project]
 name = "er-outputs-secrets"
 # keep in sync with Dockerfile
-version = "0.2.0"
+version = "0.2.1"
 description = "Parse terraform outputs and create k8s secrets"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = "~= 3.11.0"
 dependencies = [
     # allow updates for patch versions only
     "anymarkup ~=0.8.1",
@@ -20,8 +20,8 @@ homepage = "https://github.com/app-sre/er-outputs-secretse"
 repository = "https://github.com/app-sre/er-outputs-secretse"
 documentation = "https://github.com/app-sre/er-outputs-secretse"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     # allow updates for minor versions
     "ruff ~=0.7",
     "mypy ~=1.13",
