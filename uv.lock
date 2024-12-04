@@ -130,6 +130,15 @@ toml = [
 ]
 
 [[package]]
+name = "durationpy"
+version = "0.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/e9/f49c4e7fccb77fa5c43c2480e09a857a78b41e7331a75e128ed5df45c56b/durationpy-0.9.tar.gz", hash = "sha256:fd3feb0a69a0057d582ef643c355c40d2fa1c942191f914d12203b1a01ac722a", size = 3186 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4c/a3/ac312faeceffd2d8f86bc6dcb5c401188ba5a01bc88e69bed97578a0dfcd/durationpy-0.9-py3-none-any.whl", hash = "sha256:e65359a7af5cedad07fb77a2dd3f390f8eb0b74cb845589fa6c057086834dd38", size = 3461 },
+]
+
+[[package]]
 name = "er-outputs-secrets"
 version = "0.2.1"
 source = { virtual = "." }
@@ -152,7 +161,7 @@ dev = [
 requires-dist = [
     { name = "anymarkup", specifier = "~=0.8.1" },
     { name = "external-resources-io", specifier = "~=0.3.2" },
-    { name = "kubernetes", specifier = "~=28.1.0" },
+    { name = "kubernetes", specifier = "~=31.0.0" },
     { name = "pydantic", specifier = "~=2.8.0" },
 ]
 
@@ -219,10 +228,11 @@ wheels = [
 
 [[package]]
 name = "kubernetes"
-version = "28.1.0"
+version = "31.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
+    { name = "durationpy" },
     { name = "google-auth" },
     { name = "oauthlib" },
     { name = "python-dateutil" },
@@ -233,9 +243,9 @@ dependencies = [
     { name = "urllib3" },
     { name = "websocket-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3c/5e/d27f39f447137a9a3d1f31142c77ce74bcedfda7dafe922d725c7ef2da33/kubernetes-28.1.0.tar.gz", hash = "sha256:1468069a573430fb1cb5ad22876868f57977930f80a6749405da31cd6086a7e9", size = 817854 }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/bd/ffcd3104155b467347cd9b3a64eb24182e459579845196b3a200569c8912/kubernetes-31.0.0.tar.gz", hash = "sha256:28945de906c8c259c1ebe62703b56a03b714049372196f854105afe4e6d014c0", size = 916096 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/6a/1f69c2d8b1ff03f8d8e10d801f4ac3016ed4c1b00aa9795732c6ec900bba/kubernetes-28.1.0-py2.py3-none-any.whl", hash = "sha256:10f56f8160dcb73647f15fafda268e7f60cf7dbc9f8e46d52fcd46d3beb0c18d", size = 1566315 },
+    { url = "https://files.pythonhosted.org/packages/fb/a8/17f5e28cecdbd6d48127c22abdb794740803491f422a11905c4569d8e139/kubernetes-31.0.0-py2.py3-none-any.whl", hash = "sha256:bf141e2d380c8520eada8b351f4e319ffee9636328c137aa432bc486ca1200e1", size = 1857013 },
 ]
 
 [[package]]
