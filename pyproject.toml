@@ -11,7 +11,7 @@ dependencies = [
     # allow updates for patch versions only
     "anymarkup ~=0.8.1",
     "external-resources-io ~=0.3.2",
-    "kubernetes ~=28.1.0",
+    "kubernetes ~=31.0.0",
     "pydantic ~=2.8.0",
 ]
 
