@@ -1,7 +1,7 @@
 [project]
 name = "er-outputs-secrets"
 # keep in sync with Dockerfile
-version = "0.2.1"
+version = "0.2.2"
 description = "Parse terraform outputs and create k8s secrets"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
@@ -11,8 +11,8 @@ dependencies = [
     # allow updates for patch versions only
     "anymarkup ~=0.8.1",
     "external-resources-io ~=0.3.2",
-    "kubernetes ~=28.1.0",
-    "pydantic ~=2.8.0",
+    "kubernetes ~=31.0.0",
+    "pydantic ~=2.10.0",
 ]
 
 [project.urls]
@@ -26,7 +26,7 @@ dev = [
     "ruff ~=0.7",
     "mypy ~=1.13",
     "pytest ~=8.3",
-    "pytest-cov ~=5.0",
+    "pytest-cov ~=6.0",
 ]
 
 # Ruff configuration

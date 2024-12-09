@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Bump dependencies
+
 ## 0.2.1
 
 - Don't include `uv` in the final prod image
