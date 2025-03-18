@@ -7,6 +7,10 @@ from external_resources_io.input import AppInterfaceProvision, TerraformProvisio
 sys.path.append(str(Path(__file__).parent.parent))
 
 
+DEFAULT_EXPECTED_SECRET_NAME = "external-resources-output-6d9eb7ec5e128634012e28f84506de80"
+DEFAULT_TERRAFORM_OUTPUT = '{"output1": {"value": "output1_value"}, "output2": {"value": 12345}}'
+DEFAULT_EXPECTED_OUTPUTS = {"output1": "b3V0cHV0MV92YWx1ZQ==", "output2": "MTIzNDU="}
+
 @pytest.fixture
 def provision() -> AppInterfaceProvision:
     return AppInterfaceProvision(

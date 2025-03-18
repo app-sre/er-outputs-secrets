@@ -3,7 +3,6 @@ import hashlib
 import json
 import logging
 import os
-import sys
 from pathlib import Path
 
 from external_resources_io.input import (
@@ -63,24 +62,20 @@ def save_outputs(
             raise e
 
 
-if __name__ == "__main__":
+def main():
     input_data = read_input_from_file()
     provision: AppInterfaceProvision = parse_model(
         AppInterfaceProvision, input_data["provision"]
     )
-
     namespace = os.environ["NAMESPACE"]
     action = os.environ["ACTION"]
     dry_run = os.environ["DRY_RUN"]
-
     if dry_run == "True":
         logging.info("DRY_RUN does not store any secret")
-        sys.exit(0)
-
+        return
     if action == "Destroy":
         logging.info("No outputs management on Destroy Action")
-        sys.exit(0)
-
+        return
     if action == "Apply":
         secret = V1Secret(
             api_version="v1",
@@ -94,3 +89,7 @@ if __name__ == "__main__":
         )
         k8s_client = get_k8s_client()
         save_outputs(k8s_client, namespace, secret)
+
+
+if __name__ == "__main__":
+    main()
