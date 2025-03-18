@@ -25,15 +25,18 @@ def mock_logging() -> Iterator[Mock]:
     with patch("main.logging") as m:
         yield m
 
+
 @pytest.fixture
 def mock_path() -> Iterator[Mock]:
     with patch("main.Path") as m:
         yield m
 
+
 @pytest.fixture
 def mock_k8s_config() -> Iterator[Mock]:
     with patch("main.config") as m:
         yield m
+
 
 @pytest.fixture
 def mock_k8s_client() -> Iterator[Mock]:
@@ -55,6 +58,7 @@ def test_main_dry_run(
 
     mock_logging.info.assert_called_once_with("DRY_RUN does not store any secret")
 
+
 def test_main_destroy(
     provision: AppInterfaceProvision,
     mock_read_input_from_file: Mock,
@@ -69,6 +73,7 @@ def test_main_destroy(
 
     mock_logging.info.assert_called_once_with("No outputs management on Destroy Action")
 
+
 def test_main_apply_when_secret_not_exist(
     provision: AppInterfaceProvision,
     mock_read_input_from_file: Mock,
@@ -78,16 +83,19 @@ def test_main_apply_when_secret_not_exist(
     mock_k8s_client: Mock,
 ) -> None:
     expected_secret = V1Secret(
-            api_version="v1",
-            metadata=V1ObjectMeta(
-                name=DEFAULT_EXPECTED_SECRET_NAME,
-                annotations=provision.model_dump(exclude={"module_provision_data"}),
-            ),
-            data=DEFAULT_EXPECTED_OUTPUTS,
-        )
+        api_version="v1",
+        metadata=V1ObjectMeta(
+            name=DEFAULT_EXPECTED_SECRET_NAME,
+            annotations=provision.model_dump(exclude={"module_provision_data"}),
+        ),
+        data=DEFAULT_EXPECTED_OUTPUTS,
+    )
     mock_read_input_from_file.return_value = {"provision": provision}
+    mock_path.return_value.exists.return_value = True
     mock_path.return_value.read_text.return_value = DEFAULT_TERRAFORM_OUTPUT
-    mock_k8s_client.return_value.read_namespaced_secret.side_effect = ApiException(status=404)
+    mock_k8s_client.return_value.read_namespaced_secret.side_effect = ApiException(
+        status=404
+    )
 
     with patch.dict(
         os.environ, {"NAMESPACE": "foo", "ACTION": "Apply", "DRY_RUN": "False"}
@@ -99,6 +107,7 @@ def test_main_apply_when_secret_not_exist(
         namespace="foo",
         body=expected_secret,
     )
+
 
 def test_main_apply_when_secret_exist(
     provision: AppInterfaceProvision,
@@ -117,6 +126,7 @@ def test_main_apply_when_secret_exist(
         data=DEFAULT_EXPECTED_OUTPUTS,
     )
     mock_read_input_from_file.return_value = {"provision": provision}
+    mock_path.return_value.exists.return_value = True
     mock_path.return_value.read_text.return_value = DEFAULT_TERRAFORM_OUTPUT
 
     with patch.dict(
@@ -129,4 +139,25 @@ def test_main_apply_when_secret_exist(
         DEFAULT_EXPECTED_SECRET_NAME,
         "foo",
         body=expected_secret,
+    )
+
+
+def test_main_apply_when_no_output_file(
+    provision: AppInterfaceProvision,
+    mock_read_input_from_file: Mock,
+    mock_logging: Mock,
+    mock_path: Mock,
+    mock_k8s_config: Mock,
+    mock_k8s_client: Mock,
+) -> None:
+    mock_read_input_from_file.return_value = {"provision": provision}
+    mock_path.return_value.exists.return_value = False
+
+    with patch.dict(
+        os.environ, {"NAMESPACE": "foo", "ACTION": "Apply", "DRY_RUN": "False"}
+    ):
+        main()
+
+    mock_logging.info.assert_called_once_with(
+        "No output file found at /work/output.json, skip output management"
     )

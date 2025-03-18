@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 
+from external_resources_io.config import Action, Config
 from external_resources_io.input import (
     AppInterfaceProvision,
     parse_model,
@@ -14,6 +15,8 @@ from kubernetes import config
 from kubernetes.client import CoreV1Api, V1ObjectMeta, V1Secret
 from kubernetes.client.exceptions import ApiException
 from kubernetes.dynamic.exceptions import NotFoundError, api_exception
+
+OUTPUTS_FILE = "/work/output.json"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -68,27 +71,33 @@ def main():
         AppInterfaceProvision, input_data["provision"]
     )
     namespace = os.environ["NAMESPACE"]
-    action = os.environ["ACTION"]
-    dry_run = os.environ["DRY_RUN"]
-    if dry_run == "True":
+    conf = Config()
+    if conf.dry_run:
         logging.info("DRY_RUN does not store any secret")
         return
-    if action == "Destroy":
-        logging.info("No outputs management on Destroy Action")
-        return
-    if action == "Apply":
-        secret = V1Secret(
-            api_version="v1",
-            metadata=V1ObjectMeta(
-                name=get_secret_name(provision),
-                annotations=provision.model_dump(exclude={"module_provision_data"}),
-            ),
-            data=read_outputs(
-                terraform_output=Path("/work/output.json").read_text(encoding="locale")
-            ),
-        )
-        k8s_client = get_k8s_client()
-        save_outputs(k8s_client, namespace, secret)
+
+    match conf.action:
+        case Action.DESTROY:
+            logging.info("No outputs management on Destroy Action")
+        case Action.APPLY:
+            output_file = Path(OUTPUTS_FILE)
+            if not output_file.exists():
+                logging.info(
+                    f"No output file found at {OUTPUTS_FILE}, skip output management"
+                )
+                return
+            secret = V1Secret(
+                api_version="v1",
+                metadata=V1ObjectMeta(
+                    name=get_secret_name(provision),
+                    annotations=provision.model_dump(exclude={"module_provision_data"}),
+                ),
+                data=read_outputs(
+                    terraform_output=output_file.read_text(encoding="locale")
+                ),
+            )
+            k8s_client = get_k8s_client()
+            save_outputs(k8s_client, namespace, secret)
 
 
 if __name__ == "__main__":

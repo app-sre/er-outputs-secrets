@@ -1,4 +1,5 @@
 import pytest
+from tests.conftest import DEFAULT_EXPECTED_OUTPUTS, DEFAULT_TERRAFORM_OUTPUT
 
 from main import read_outputs
 
@@ -13,8 +14,8 @@ from main import read_outputs
         ),
         # terraform json
         (
-            '{"output1": {"value": "output1_value"}, "output2": {"value": 12345}}',
-            {"output1": "b3V0cHV0MV92YWx1ZQ==", "output2": "MTIzNDU="},
+            DEFAULT_TERRAFORM_OUTPUT,
+            DEFAULT_EXPECTED_OUTPUTS,
         ),
     ],
 )
