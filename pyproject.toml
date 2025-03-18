@@ -8,11 +8,9 @@ license = { text = "MIT License" }
 readme = "README.md"
 requires-python = "~= 3.11.0"
 dependencies = [
-    # allow updates for patch versions only
-    "anymarkup ~=0.8.1",
-    "external-resources-io ~=0.5.1",
-    "kubernetes ~=31.0.0",
-    "pydantic ~=2.10.0",
+    "external-resources-io==0.6.1",
+    "kubernetes==32.0.1",
+    "pydantic==2.10.6",
 ]
 
 [project.urls]
@@ -22,11 +20,10 @@ documentation = "https://github.com/app-sre/er-outputs-secretse"
 
 [dependency-groups]
 dev = [
-    # allow updates for minor versions
-    "ruff ~=0.7",
-    "mypy ~=1.13",
-    "pytest ~=8.3",
-    "pytest-cov ~=6.0",
+    "mypy==1.15.0",
+    "pytest-cov==6.0.0",
+    "pytest==8.3.5",
+    "ruff==0.11.0",
 ]
 
 # Ruff configuration
