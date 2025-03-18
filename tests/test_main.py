@@ -5,13 +5,13 @@ from unittest.mock import Mock, patch
 import pytest
 from external_resources_io.input import AppInterfaceProvision
 from kubernetes.client import ApiException, V1ObjectMeta, V1Secret
+
+from main import main
 from tests.conftest import (
     DEFAULT_EXPECTED_OUTPUTS,
     DEFAULT_EXPECTED_SECRET_NAME,
     DEFAULT_TERRAFORM_OUTPUT,
 )
-
-from main import main
 
 
 @pytest.fixture

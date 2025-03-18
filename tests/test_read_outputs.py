@@ -1,7 +1,7 @@
 import pytest
-from tests.conftest import DEFAULT_EXPECTED_OUTPUTS, DEFAULT_TERRAFORM_OUTPUT
 
 from main import read_outputs
+from tests.conftest import DEFAULT_EXPECTED_OUTPUTS, DEFAULT_TERRAFORM_OUTPUT
 
 
 @pytest.mark.parametrize(
