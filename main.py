@@ -65,7 +65,7 @@ def save_outputs(
             raise e
 
 
-def main():
+def main() -> None:
     input_data = read_input_from_file()
     provision: AppInterfaceProvision = parse_model(
         AppInterfaceProvision, input_data["provision"]
