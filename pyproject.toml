@@ -10,7 +10,7 @@ requires-python = "~= 3.11.0"
 dependencies = [
     "external-resources-io==0.6.1",
     "kubernetes==32.0.1",
-    "pydantic==2.10.6",
+    "pydantic==2.11.4",
 ]
 
 [project.urls]
@@ -23,7 +23,7 @@ dev = [
     "mypy==1.15.0",
     "pytest-cov==6.1.1",
     "pytest==8.3.5",
-    "ruff==0.11.2",
+    "ruff==0.11.8",
 ]
 
 # Ruff configuration
