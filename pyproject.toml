@@ -6,11 +6,11 @@ description = "Parse terraform outputs and create k8s secrets"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
-requires-python = "~= 3.11.0"
+requires-python = "~=3.13.3"
 dependencies = [
     "external-resources-io==0.6.1",
     "kubernetes==32.0.1",
-    "pydantic==2.11.4",
+    "pydantic==2.11.5",
 ]
 
 [project.urls]
@@ -23,7 +23,7 @@ dev = [
     "mypy==1.15.0",
     "pytest-cov==6.1.1",
     "pytest==8.3.5",
-    "ruff==0.11.9",
+    "ruff==0.11.11",
 ]
 
 # Ruff configuration
