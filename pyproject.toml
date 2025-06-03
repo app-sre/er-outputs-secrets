@@ -22,7 +22,7 @@ documentation = "https://github.com/app-sre/er-outputs-secretse"
 dev = [
     "mypy==1.15.0",
     "pytest-cov==6.1.1",
-    "pytest==8.3.5",
+    "pytest==8.4.0",
     "ruff==0.11.9",
 ]
 
