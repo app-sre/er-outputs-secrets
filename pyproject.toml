@@ -23,7 +23,7 @@ dev = [
     "mypy==1.18.2",
     "pytest-cov==7.0.0",
     "pytest==9.0.1",
-    "ruff==0.14.5",
+    "ruff==0.14.6",
 ]
 
 # Ruff configuration
