@@ -17,8 +17,8 @@ from kubernetes.client.exceptions import ApiException
 from kubernetes.dynamic.exceptions import NotFoundError, api_exception
 
 OUTPUTS_FILE = "/work/output.json"
-
-logging.basicConfig(level=logging.INFO)
+ 
+logger = logging.getLogger(__name__)
 
 
 def read_outputs(terraform_output: str) -> dict[str, str]:
@@ -53,16 +53,16 @@ def save_outputs(
 ) -> None:
     try:
         k8s_client.read_namespaced_secret(secret.metadata.name, namespace)
-        logging.info("Secret already exists: Replacing")
+        logger.info("Secret already exists: Replacing")
         k8s_client.replace_namespaced_secret(
             secret.metadata.name, namespace, body=secret
         )
     except ApiException as e:
         if isinstance(api_exception(e), NotFoundError):
-            logging.info("Secret does not exist: Creating")
+            logger.info("Secret does not exist: Creating")
             k8s_client.create_namespaced_secret(namespace=namespace, body=secret)
         else:
-            raise e
+            raise
 
 
 def main() -> None:
@@ -73,16 +73,16 @@ def main() -> None:
     namespace = os.environ["NAMESPACE"]
     conf = Config()
     if conf.dry_run:
-        logging.info("DRY_RUN does not store any secret")
+        logger.info("DRY_RUN does not store any secret")
         return
 
     match conf.action:
         case Action.DESTROY:
-            logging.info("No outputs management on Destroy Action")
+            logger.info("No outputs management on Destroy Action")
         case Action.APPLY:
             output_file = Path(OUTPUTS_FILE)
             if not output_file.exists():
-                logging.info(
+                logger.info(
                     f"No output file found at {OUTPUTS_FILE}, skip output management"
                 )
                 return
