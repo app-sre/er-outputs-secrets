@@ -17,7 +17,7 @@ from kubernetes.client.exceptions import ApiException
 from kubernetes.dynamic.exceptions import NotFoundError, api_exception
 
 OUTPUTS_FILE = "/work/output.json"
- 
+
 logger = logging.getLogger(__name__)
 
 
