@@ -22,7 +22,7 @@ def mock_read_input_from_file() -> Iterator[Mock]:
 
 @pytest.fixture
 def mock_logging() -> Iterator[Mock]:
-    with patch("main.logging") as m:
+    with patch("main.logger") as m:
         yield m
 
 
