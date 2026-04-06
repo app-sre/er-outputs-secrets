@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/python-311@sha256:8fb94e142e1093b82ca64b334264a5da8e874567d64ce4b6d614f86da3e38813 AS base
+FROM registry.access.redhat.com/ubi9/python-311@sha256:77964f9f4e4019f4d2b3135135e3bcfde5245268b312d4e2cff8bb62563a26b5 AS base
 # er-outputs-secrets version. keep in sync with pyproject.toml
 LABEL konflux.additional-tags="0.2.3"
 COPY LICENSE /licenses/
