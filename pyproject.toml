@@ -1,14 +1,14 @@
 [project]
 name = "er-outputs-secrets"
 # keep in sync with Dockerfile
-version = "0.3.0"
+version = "0.4.0"
 description = "Parse terraform outputs and create k8s secrets"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
-requires-python = "~= 3.11.0"
+requires-python = "~= 3.14.0"
 dependencies = [
-    "external-resources-io==0.6.4",
+    "external-resources-io==0.7.0",
     "kubernetes==35.0.0",
     "pydantic==2.13.4",
 ]
@@ -20,6 +20,7 @@ documentation = "https://github.com/app-sre/er-outputs-secretse"
 
 [dependency-groups]
 dev = [
+    # development dependencies
     "mypy==2.1.0",
     "pytest-cov==7.1.0",
     "pytest==9.0.3",
@@ -29,7 +30,6 @@ dev = [
 # Ruff configuration
 [tool.ruff]
 line-length = 88
-target-version = 'py311'
 src = ["main"]
 extend-exclude = [
     ".local", # used by poetry in local venv
