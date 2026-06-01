@@ -1,7 +1,9 @@
-FROM registry.access.redhat.com/ubi9/python-311@sha256:a0bdb55576fc5b8d6704279307817828ef027e1065533ceba133fe9516003a6c AS base
+FROM registry.access.redhat.com/ubi10/python-314-minimal@sha256:0c5b5d198178280e65577e63251ee5ee49435e1a711bef4e4b5b471723e0ed3c AS base
 # er-outputs-secrets version. keep in sync with pyproject.toml
-LABEL konflux.additional-tags="0.3.0"
+LABEL konflux.additional-tags="0.4.0"
 COPY LICENSE /licenses/
+
+ENV IS_TESTED_FLAG="/tmp/is_tested"
 
 
 #
@@ -31,11 +33,16 @@ RUN uv sync --frozen --no-group dev
 #
 FROM builder AS test
 
+USER 0
+RUN microdnf -y --nodocs --setopt=install_weak_deps=0 install make && microdnf clean all
+USER 1001
+
 COPY Makefile ./
 RUN uv sync --frozen
 
 COPY tests ./tests
 RUN make test
+RUN touch ${IS_TESTED_FLAG}
 
 
 #
@@ -43,4 +50,6 @@ RUN make test
 #
 FROM base AS prod
 COPY --from=builder /opt/app-root /opt/app-root
+COPY --from=test ${IS_TESTED_FLAG} ${IS_TESTED_FLAG}
+
 ENTRYPOINT [ "python3", "main.py" ]
