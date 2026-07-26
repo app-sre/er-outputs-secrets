@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = "~= 3.14.0"
 dependencies = [
     "external-resources-io==0.7.0",
-    "kubernetes==36.0.2",
+    "kubernetes==36.0.3",
     "pydantic==2.13.4",
 ]
 
@@ -21,10 +21,10 @@ documentation = "https://github.com/app-sre/er-outputs-secretse"
 [dependency-groups]
 dev = [
     # development dependencies
-    "mypy==2.2.0",
+    "mypy==2.3.0",
     "pytest-cov==7.1.0",
     "pytest==9.1.1",
-    "ruff==0.15.21",
+    "ruff==0.16.0",
 ]
 
 # Ruff configuration
