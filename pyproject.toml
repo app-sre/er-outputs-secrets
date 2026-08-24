@@ -21,10 +21,10 @@ documentation = "https://github.com/app-sre/er-outputs-secretse"
 [dependency-groups]
 dev = [
     # development dependencies
-    "mypy==2.3.0",
+    "mypy==2.3.1",
     "pytest-cov==7.1.0",
     "pytest==9.1.1",
-    "ruff==0.16.3",
+    "ruff==0.16.4",
 ]
 
 # Ruff configuration
