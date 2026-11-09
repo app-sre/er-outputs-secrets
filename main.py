@@ -49,14 +49,13 @@ def get_k8s_client() -> CoreV1Api:
 def save_outputs(
     k8s_client: CoreV1Api,
     namespace: str,
+    secret_name: str,
     secret: V1Secret,
 ) -> None:
     try:
-        k8s_client.read_namespaced_secret(secret.metadata.name, namespace)
+        k8s_client.read_namespaced_secret(secret_name, namespace)
         logger.info("Secret already exists: Replacing")
-        k8s_client.replace_namespaced_secret(
-            secret.metadata.name, namespace, body=secret
-        )
+        k8s_client.replace_namespaced_secret(secret_name, namespace, body=secret)
     except ApiException as e:
         if isinstance(api_exception(e), NotFoundError):
             logger.info("Secret does not exist: Creating")
@@ -86,10 +85,11 @@ def main() -> None:
                     f"No output file found at {OUTPUTS_FILE}, skip output management"
                 )
                 return
+            secret_name = get_secret_name(provision)
             secret = V1Secret(
                 api_version="v1",
                 metadata=V1ObjectMeta(
-                    name=get_secret_name(provision),
+                    name=secret_name,
                     annotations=provision.model_dump(exclude={"module_provision_data"}),
                 ),
                 data=read_outputs(
@@ -97,7 +97,7 @@ def main() -> None:
                 ),
             )
             k8s_client = get_k8s_client()
-            save_outputs(k8s_client, namespace, secret)
+            save_outputs(k8s_client, namespace, secret_name, secret)
 
 
 if __name__ == "__main__":
